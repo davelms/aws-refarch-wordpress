@@ -1162,7 +1162,7 @@ Resources:
           !Ref DataSubnet4Cidr
         DataSubnet5Cidr:
           !Ref DataSubnet5Cidr
-      TemplateURL: https://davelms-cloudformation-templates.s3.amazonaws.com/wordpress/01-vpc.yaml
+      TemplateURL: https://davelms-cloudformation-templates.s3.amazonaws.com/wordpress/01-vpc-onenat.yaml
   publicalb:
     Condition: AvailableAWSRegion
     DependsOn: [ newvpc, securitygroups ]
