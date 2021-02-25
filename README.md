@@ -4,7 +4,7 @@ Originally sourced from [aws-samples/aws-refarch-wordpress](https://github.com/a
 
 ```shell
 aws cloudformation create-stack \
- --stack-name WordPress \
+ --stack-name wordpress \
  --template-body file://templates/master.yaml \
  --parameters file://params.json \
  --capabilities CAPABILITY_IAM \

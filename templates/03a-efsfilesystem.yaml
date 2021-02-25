@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: Reference Architecture to host WordPress on AWS - Creates EFS file system
+Description: WordPress - Creates EFS file system
 
 Metadata:
 
@@ -26,13 +26,13 @@ Metadata:
         - InstanceType
         - EC2KeyName
         - PerformanceMode
-        - EncrpytedBoolean
+        - EncryptedBoolean
         - Cmk
         - SecurityGroup
         - NumberOfSubnets
         - Subnet
     ParameterLabels:
-      EncrpytedBoolean:
+      EncryptedBoolean:
         default: Encryption state
       Cmk:
         default: KMS Key
@@ -53,7 +53,7 @@ Metadata:
 
 Parameters:
 
-  EncrpytedBoolean:
+  EncryptedBoolean:
     AllowedValues:
       - True
       - False
@@ -246,7 +246,7 @@ Resources:
   ElasticFileSystem:
     Type: AWS::EFS::FileSystem
     Properties:
-      Encrypted: !Ref EncrpytedBoolean
+      Encrypted: !Ref EncryptedBoolean
       KmsKeyId:
         !If [ UseAWS-ManagedCMK, !Ref 'AWS::NoValue', !Ref Cmk ]
       FileSystemTags:

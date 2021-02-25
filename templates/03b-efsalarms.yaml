@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: Reference Architecture to host WordPress on AWS - Creates EFS alarms
+Description: WordPress - Creates EFS alarms
 
 Metadata:
 

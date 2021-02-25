@@ -57,7 +57,7 @@ Metadata:
         default: File System Tier
       Parameters:
         - EfsPerformanceMode
-        - EfsEncrpytedBoolean
+        - EfsEncryptedBoolean
         - EfsCmk
         - EfsGrowth
         - EfsGrowthInstanceType
@@ -69,7 +69,7 @@ Metadata:
         default: Database Tier
       Parameters:
         - DatabaseInstanceType
-        - DatabaseEncrpytedBoolean
+        - DatabaseEncryptedBoolean
         - DatabaseCmk
         - DatabaseMasterUsername
         - DatabaseMasterPassword
@@ -84,7 +84,6 @@ Metadata:
         default: Web Tier
       Parameters:
         - PublicAlbAcmCertificate
-        - PHPVersion
         - PHPIniOverride
         - WebInstanceType
         - WebAsgMax
@@ -105,7 +104,7 @@ Metadata:
         default: CloudFront Certificate ARN
       DatabaseCmk:
         default: AWS KMS CMK for RDS 
-      DatabaseEncrpytedBoolean:
+      DatabaseEncryptedBoolean:
         default: Encrypted DB Cluster
       DatabaseInstanceType:
         default: DB Instance Class
@@ -121,8 +120,8 @@ Metadata:
         default: AWS KMS CMK for EFS
       EfsCreateAlarms:
         default: Create EFS alarms
-      EfsEncrpytedBoolean:
-        default: Encrpyted EFS?
+      EfsEncryptedBoolean:
+        default: Encrypted EFS?
       EfsGrowth:
         default: Add dummy data (GiB)
       EfsGrowthInstanceType:
@@ -179,8 +178,6 @@ Metadata:
         default: VpcCidr
       VpcTenancy:
         default: VpcTenancy
-      PHPVersion:
-        default: PHP Version
       PublicSubnet0Cidr:
         default: Public Subnet 0
       PublicSubnet1Cidr:
@@ -322,7 +319,7 @@ Parameters:
   DatabaseCmk:
     Description: AWS KMS Customer Master Key (CMK) to encrypt database cluster
     Type: String
-  DatabaseEncrpytedBoolean:
+  DatabaseEncryptedBoolean:
     AllowedValues:
       - true
       - false
@@ -462,7 +459,7 @@ Parameters:
     Default: t2.nano
     Description: The Amazon EC2 instance type that dynamically adjusts alarm thresholds based on permitted throughput changes.
     Type: String
-  EfsEncrpytedBoolean:
+  EfsEncryptedBoolean:
     AllowedValues:
       - true
       - false
@@ -633,13 +630,6 @@ Parameters:
     Default: https://raw.githubusercontent.com/davelms/aws-wordpress/main/bits/20-aws.ini
     Description: Full path to a php.ini override file (e.g. https://raw.githubusercontent.com/davelms/aws-wordpress/main/bits/20-aws.ini)
     Type: String
-  PHPVersion:
-    AllowedValues:
-    - 7.0
-    - 7.4
-    Default: 7.4
-    Description: The version of PHP to install.
-    Type: String 
   PublicAlbAcmCertificate:
     AllowedPattern: ^$|(arn:aws:acm:)([a-z0-9/:-])*([a-z0-9])$
     Description: '[ Optional ] The AWS Certification Manager certificate ARN for the ALB certificate - this certificate should be created in the region you wish to run the ALB and must reference the WordPress domain name you use below.'
@@ -1053,8 +1043,8 @@ Resources:
     Type: AWS::CloudFormation::Stack
     Properties:
       Parameters:
-        EncrpytedBoolean:
-          !Ref EfsEncrpytedBoolean
+        EncryptedBoolean:
+          !Ref EfsEncryptedBoolean
         Cmk:
           !Ref EfsCmk
         EC2KeyName:
@@ -1194,8 +1184,8 @@ Resources:
           !Ref DatabaseMasterPassword
         DatabaseName:
           !Ref DatabaseName
-        DatabaseEncrpytedBoolean:
-          !Ref DatabaseEncrpytedBoolean
+        DatabaseEncryptedBoolean:
+          !Ref DatabaseEncryptedBoolean
         DatabaseCmk:
           !Ref DatabaseCmk
         DatabaseSecurityGroup:
@@ -1251,8 +1241,6 @@ Resources:
           !Ref NumberOfAZs
         PHPIniOverride:
           !Ref PHPIniOverride
-        PHPVersion:
-          !Ref PHPVersion
         PublicAlbTargetGroupArn:
           !GetAtt [ publicalb, Outputs.PublicAlbTargetGroupArn ]
         PublicAlbHostname:

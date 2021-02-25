@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
 
-Description: Reference Architecture to host WordPress on AWS - Creates RDS Aurora database cluster
+Description: WordPress - Creates RDS Aurora database cluster
 
 Metadata:
 
@@ -25,13 +25,13 @@ Metadata:
         - DatabaseMasterUsername
         - DatabaseMasterPassword
         - DatabaseName
-        - DatabaseEncrpytedBoolean
+        - DatabaseEncryptedBoolean
         - DatabaseCmk
         - DatabaseSecurityGroup
         - NumberOfSubnets
         - Subnet
     ParameterLabels:
-      DatabaseEncrpytedBoolean:
+      DatabaseEncryptedBoolean:
         default: Encrypted DB Cluster
       DatabaseCmk:
         default: AWS KMS Customer Master Key (CMK) to encrypt DB 
@@ -52,7 +52,7 @@ Metadata:
 
 Parameters:
 
-  DatabaseEncrpytedBoolean:
+  DatabaseEncryptedBoolean:
     AllowedValues:
       - true
       - false
@@ -174,7 +174,7 @@ Resources:
       MasterUsername: !Ref DatabaseMasterUsername
       MasterUserPassword: !Ref DatabaseMasterPassword
       Port: 3306
-      StorageEncrypted: !Ref DatabaseEncrpytedBoolean
+      StorageEncrypted: !Ref DatabaseEncryptedBoolean
       Tags:
         - Key: Name
           Value: !Join [ '', [ 'WordPress / ', !Ref 'AWS::StackName' ] ]
